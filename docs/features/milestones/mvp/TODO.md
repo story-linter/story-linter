@@ -55,14 +55,18 @@
   - [x] Extensibility tests
 
 ### Link Graph Validator
-- [ ] Port from GitScrolls implementation
-  - [ ] Extract link validation logic
-  - [ ] Adapt to new plugin interface
-- [ ] Implement link checking
-  - [ ] Internal markdown links
-  - [ ] Broken reference detection
-  - [ ] Bidirectional link validation
-- [ ] Write comprehensive tests
+- [x] Port from GitScrolls implementation
+  - [x] Extract link validation logic
+  - [x] Adapt to new plugin interface
+- [x] Implement link checking
+  - [x] Internal markdown links
+  - [x] Broken reference detection
+  - [x] Bidirectional link validation
+  - [x] Orphan document detection
+- [x] Write comprehensive tests
+  - [x] Unit tests for all rules
+  - [x] Integration tests with complex paths
+  - [x] Edge case coverage
 
 ### Integration Testing
 - [ ] Run against GitScrolls project
