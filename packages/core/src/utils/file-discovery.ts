@@ -1,6 +1,18 @@
-import { glob } from 'glob';
-import { resolve } from 'node:path';
-import { stat } from 'node:fs/promises';
+// Port interfaces for dependency injection (SOLID principle)
+export interface GlobPort {
+  glob(pattern: string, options: any): Promise<string[]>;
+  hasMagic(pattern: string): boolean;
+  minimatch(path: string, pattern: string, options?: any): boolean;
+}
+
+export interface FileSystemPort {
+  stat(path: string): Promise<{ mtime: Date }>;
+}
+
+export interface PathResolverPort {
+  resolve(...paths: string[]): string;
+  cwd(): string;
+}
 
 export interface FileDiscoveryOptions {
   include: string[];
@@ -10,17 +22,22 @@ export interface FileDiscoveryOptions {
 }
 
 export class FileDiscovery {
+  constructor(
+    private readonly globPort: GlobPort,
+    private readonly fileSystem: FileSystemPort,
+    private readonly pathResolver: PathResolverPort
+  ) {}
   /**
    * Discover files matching the given patterns
    */
   async discoverFiles(options: FileDiscoveryOptions): Promise<string[]> {
-    const { include, exclude, baseDir = process.cwd(), followSymlinks = false } = options;
+    const { include, exclude, baseDir = this.pathResolver.cwd(), followSymlinks = false } = options;
     
     const allFiles = new Set<string>();
     
     // Process each include pattern
     for (const pattern of include) {
-      const matches = await glob(pattern, {
+      const matches = await this.globPort.glob(pattern, {
         cwd: baseDir,
         absolute: true,
         ignore: exclude,
@@ -43,7 +60,7 @@ export class FileDiscovery {
   private async sortFilesByModificationTime(files: string[]): Promise<string[]> {
     const fileStats = await Promise.all(
       files.map(async (file) => {
-        const stats = await stat(file);
+        const stats = await this.fileSystem.stat(file);
         return { file, mtime: stats.mtime.getTime() };
       })
     );
@@ -57,12 +74,12 @@ export class FileDiscovery {
    * Check if a file matches any of the patterns
    */
   matchesPatterns(filePath: string, patterns: string[]): boolean {
-    const absolutePath = resolve(filePath);
+    const absolutePath = this.pathResolver.resolve(filePath);
     
     for (const pattern of patterns) {
       // Use glob's minimatch under the hood
-      const matches = glob.hasMagic(pattern) 
-        ? glob.minimatch(absolutePath, pattern, { matchBase: true })
+      const matches = this.globPort.hasMagic(pattern) 
+        ? this.globPort.minimatch(absolutePath, pattern, { matchBase: true })
         : absolutePath.includes(pattern);
         
       if (matches) return true;
