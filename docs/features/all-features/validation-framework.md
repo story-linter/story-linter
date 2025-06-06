@@ -214,11 +214,16 @@ interface Validator {
   name: string;
   version: string;
   
+  // Metadata extraction (called during file streaming)
+  getMetadataExtractors?(): Record<string, MetadataExtractor>;
+  
   // Validator lifecycle
   initialize?(context: ValidatorContext): Promise<void>;
   validate(files: ParsedFile[], config: any): Promise<ValidationOutput>;
   destroy?(): Promise<void>;
 }
+
+type MetadataExtractor = (content: string, context: ExtractionContext) => ExtractedData;
 
 interface ValidatorContext {
   // Shared utilities
@@ -314,25 +319,36 @@ interface ValidationError {
 
 ## Performance Considerations
 
-1. **File Parsing Cache**
-   - Parse once, validate many
-   - LRU cache for memory management
-   - Persistent cache between runs
+1. **Hybrid Caching Strategy**
+   - Stream large files (>100KB) without caching content
+   - Cache small files entirely for repeated access
+   - Always cache extracted metadata with source locations
+   - Track line/column/offset for precise error reporting
+   - Plugin-defined metadata extractors run during streaming
 
-2. **Parallel Processing**
+2. **Metadata Location Tracking**
+   ```typescript
+   interface MetadataLocation {
+     line: number;
+     column: number;
+     offset: number;  // byte offset for seeking
+   }
+   ```
+
+3. **Parallel Processing**
    - Worker threads for CPU-intensive tasks
    - Concurrent file I/O
    - Validator parallelization
 
-3. **Incremental Validation**
-   - Track file changes
+4. **Incremental Validation**
+   - Track file changes via hash
    - Re-validate only affected files
-   - Dependency graph for cascading changes
+   - Reuse cached metadata when file unchanged
 
-4. **Memory Management**
-   - Stream large files
-   - Dispose parsed data after use
-   - Configurable memory limits
+5. **Memory Management**
+   - Stream-first approach for large files
+   - LRU cache with configurable size limits
+   - Dispose parsed content, keep only metadata
 
 ## Implementation Plan
 
