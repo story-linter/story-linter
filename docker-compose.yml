@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  # Development service - mounts code for live reloading
+  dev:
+    build:
+      context: .
+      target: development
+    volumes:
+      # Mount source code for live development
+      - ./packages:/app/packages
+      - ./docs:/app/docs
+      - ./package.json:/app/package.json
+      - ./lerna.json:/app/lerna.json
+      - ./tsconfig.json:/app/tsconfig.json
+      # Prevent node_modules from being overwritten
+      - /app/node_modules
+      - /app/packages/core/node_modules
+      - /app/packages/cli/node_modules
+      - /app/packages/plugin-character/node_modules
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+    
+  # Test runner service
+  test:
+    build:
+      context: .
+      target: development
+    volumes:
+      - ./packages:/app/packages
+      - ./package.json:/app/package.json
+      - ./lerna.json:/app/lerna.json
+      - ./tsconfig.json:/app/tsconfig.json
+      - /app/node_modules
+    command: npm test
+    
+  # Build service - one-off build
+  build:
+    build:
+      context: .
+      target: base
+    volumes:
+      - ./packages:/app/packages
+      - ./dist:/app/dist
+    command: npm run build
+    
+  # CLI service - run story-linter commands
+  cli:
+    build:
+      context: .
+      target: production
+    volumes:
+      # Mount the directory you want to lint
+      - ${LINT_DIR:-./}:/workspace
+    working_dir: /workspace
+    entrypoint: ["node", "/app/packages/cli/dist/cli.js"]
