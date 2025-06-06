@@ -119,28 +119,55 @@ The story-linter CLI provides a user-friendly command-line interface for all val
 ## Acceptance Criteria
 
 1. **Commands**
-   - ✓ All core commands implemented
-   - ✓ Help available for each command
-   - ✓ Options properly parsed
-   - ✓ Exits with correct codes
+   - ✅ Basic validate command implemented
+   - ✅ Help available via --help
+   - ✅ Options properly parsed (commander.js)
+   - ✅ Exits with correct codes (0/1)
+   - ❌ Other commands not implemented (extract, watch, init, explain, config)
 
 2. **Output**
-   - ✓ Colored output by default
-   - ✓ Colors disabled in CI/pipes
-   - ✓ Progress shown for long operations
-   - ✓ Results clearly formatted
+   - ✅ Colored output by default (chalk)
+   - ✅ Colors disabled with --no-color
+   - ✅ Progress shown for long operations (ora)
+   - ✅ Results clearly formatted
 
 3. **Configuration**
-   - ✓ Loads from .story-linter.yml
-   - ✓ Environment variables work
-   - ✓ Command flags override
-   - ✓ Shows config source
+   - ✅ Loads from .story-linter.yml
+   - ❌ Environment variables not implemented
+   - ✅ Command flags work (--config, --format, etc)
+   - ❌ Config source display not implemented
 
 4. **Error Handling**
-   - ✓ Clear error messages
-   - ✓ Suggests fixes
-   - ✓ No stack traces in normal mode
-   - ✓ Debug mode shows full errors
+   - ✅ Clear error messages
+   - ⚠️ Limited fix suggestions
+   - ✅ No stack traces in normal mode
+   - ✅ Debug mode shows full errors (DEBUG env)
+
+## Implementation Status
+
+### ✅ Completed
+- `validate` command with file/directory support
+- Multiple output formats (text, JSON, HTML)
+- Progress indicators during validation
+- Colored terminal output
+- Command-line option parsing
+- Exit codes for CI/CD
+- SOLID refactoring with clean architecture
+
+### ⚠️ Partially Complete
+- Limited to validate command only
+- Basic error messages (could be more helpful)
+- Configuration loading (basic support)
+
+### ❌ Not Implemented
+- `init` command for project setup
+- `extract` command for schema extraction
+- `watch` command for file monitoring
+- `explain` command for error details
+- `config` command to show configuration
+- Shell completion
+- Man page generation
+- Interactive prompts
 
 ## Test Plan
 

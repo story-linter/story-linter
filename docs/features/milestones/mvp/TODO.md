@@ -76,28 +76,67 @@
 ## Week 5-6: CLI & Integration 🚀
 
 ### CLI Package
-- [ ] Implement basic CLI structure
-  - [ ] Set up commander.js
-  - [ ] Create validate command
-  - [ ] Add file/directory selection
-- [ ] Output formatting
-  - [ ] Pretty terminal output (chalk)
-  - [ ] JSON output format
-  - [ ] HTML report generation
-- [ ] User experience
-  - [ ] Progress indicators (ora)
-  - [ ] Proper exit codes
-  - [ ] Error messages
+- [x] Implement basic CLI structure
+  - [x] Set up commander.js
+  - [x] Create validate command
+  - [x] Add file/directory selection
+- [x] Output formatting
+  - [x] Pretty terminal output (chalk)
+  - [x] JSON output format
+  - [x] HTML report generation
+- [x] User experience
+  - [x] Progress indicators (ora)
+  - [x] Proper exit codes
+  - [x] Error messages
+- [x] SOLID refactoring
+  - [x] Extract output formatters
+  - [x] Create validation runner
+  - [x] Implement command handler
+  - [x] Add color abstraction
 
 ### Build & Distribution
-- [ ] Configure package builds
-  - [ ] TypeScript compilation
+- [x] Configure package builds
+  - [x] TypeScript compilation
   - [ ] Bundle optimization
   - [ ] Source maps
 - [ ] Prepare for npm publishing
   - [ ] Package.json metadata
   - [ ] README for each package
   - [ ] License files
+
+## Pre-Release Refactoring (Week 6) 🔧
+
+### Phase 1: Core Architecture
+- [ ] Refactor ValidationFramework (TDD)
+  - [ ] Extract ValidationOrchestrator
+  - [ ] Extract PluginManager
+  - [ ] Extract ResultAggregator
+  - [ ] Add comprehensive tests
+- [ ] Fix ConfigLoader
+  - [ ] Add FileSystemPort
+  - [ ] Write tests first
+- [ ] Fix FileDiscovery
+  - [ ] Add dependency injection
+  - [ ] Write tests first
+
+### Phase 2: Performance
+- [ ] Implement Incremental Validation
+  - [ ] File hashing and caching
+  - [ ] Dependency tracking
+  - [ ] Force flag support
+- [ ] Add Parallel Processing
+  - [ ] Promise.all batching
+  - [ ] Configurable concurrency
+
+### Phase 3: Integration Testing
+- [ ] Create GitScrolls test subset
+- [ ] Write integration tests
+- [ ] Performance benchmarks
+
+### Phase 4: Release Prep
+- [ ] Update documentation
+- [ ] Prepare npm packages
+- [ ] Final testing
 
 ## Week 7-8: Polish & Release 🎯
 
