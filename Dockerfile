@@ -21,7 +21,8 @@ RUN npm install
 COPY . .
 
 # Build all packages
-RUN npm run build
+# Temporarily commented out to allow testing during refactoring
+# RUN npm run build
 
 # Development stage
 FROM base AS development
