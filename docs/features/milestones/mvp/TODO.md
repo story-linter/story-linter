@@ -10,23 +10,32 @@
 - [x] Set up package structure (@story-linter/core, cli, plugin-character)
 
 ### Core Package Foundation
-- [ ] Create base file utilities
-  - [ ] Implement markdown file reader
-  - [ ] Add front matter parser (gray-matter)
-  - [ ] Create file caching system
-  - [ ] Support .gitignore patterns
-- [ ] Build validation framework
-  - [ ] Design base validator interface
-  - [ ] Create validation context
-  - [ ] Implement issue reporting structure
-  - [ ] Add error handling and recovery
+- [x] Create base file utilities
+  - [x] Implement markdown file reader
+  - [x] Add front matter parser (gray-matter)
+  - [x] Create file caching system (hybrid approach)
+  - [x] Support .gitignore patterns
+- [x] Build validation framework
+  - [x] Design base validator interface
+  - [x] Create validation context
+  - [x] Implement issue reporting structure
+  - [x] Add error handling and recovery
 
 ### Configuration System
-- [ ] Create configuration loader
-  - [ ] Parse .story-linter.yml files
-  - [ ] Support validator enable/disable
-  - [ ] Pass options to validators
-  - [ ] Provide sensible defaults
+- [x] Create configuration loader
+  - [x] Parse .story-linter.yml files
+  - [x] Support validator enable/disable
+  - [x] Pass options to validators
+  - [x] Provide sensible defaults
+
+### Testing & Architecture Improvements
+- [x] Set up Vitest testing framework
+- [x] Establish testing standards (TDD, SOLID, KISS, YAGNI)
+- [x] Refactor core for dependency injection
+- [x] Create test doubles (FileSystem, StreamProcessor, ContentParser)
+- [x] Write comprehensive unit tests
+- [x] Write integration tests with real file system
+- [x] Achieve testable architecture with factories
 
 ## Week 3-4: Validators 🔍
 

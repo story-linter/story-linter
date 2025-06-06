@@ -8,7 +8,7 @@
 - [x] Update navigation structure
 
 ### Current Milestone: [MVP (v0.1.0)](docs/features/milestones/mvp/)
-**Status**: Week 1 of 8 - Foundation Phase
+**Status**: Week 4 of 8 - Validator Implementation Phase
 
 #### Completed ✅
 - [x] Monorepo structure with Lerna
@@ -16,15 +16,24 @@
 - [x] Docker development environment
 - [x] ESLint & Prettier setup
 - [x] Documentation reorganization
+- [x] Core package implementation
+- [x] File processing utilities (with streaming support)
+- [x] Base validator framework with plugin architecture
+- [x] Configuration system (.story-linter.yml loader)
+- [x] Testing framework setup (Vitest)
+- [x] SOLID principles refactoring
+- [x] Dependency injection implementation
+- [x] Test doubles (no spies!)
+- [x] Unit and integration tests for core
 
 #### In Progress 🚧
-- [ ] Core package implementation
-- [ ] File processing utilities
+- [ ] Character consistency validator port
+- [ ] Link graph validator port
 
 #### Up Next 📋
-- [ ] Base validator framework
-- [ ] Configuration system
-- [ ] Character consistency validator port
+- [ ] CLI package implementation
+- [ ] Output formatters
+- [ ] End-to-end testing
 
 For detailed MVP tasks, see: [MVP TODO](docs/features/milestones/mvp/TODO.md)
 
@@ -58,8 +67,12 @@ For detailed MVP tasks, see: [MVP TODO](docs/features/milestones/mvp/TODO.md)
 - [ ] Getting started guides (post-MVP)
 
 ## Testing 🧪
-- [ ] Set up testing framework (Vitest)
-- [ ] Write unit tests for core
+- [x] Set up testing framework (Vitest)
+- [x] Write unit tests for core
+- [x] Write integration tests for file operations
+- [x] Establish testing standards (TDD, SOLID, DI)
+- [ ] Write E2E tests for complete validation flow
+- [ ] Write tests for validators
 - [ ] Write integration tests
 - [ ] Create test fixtures
 - [ ] Set up CI/CD

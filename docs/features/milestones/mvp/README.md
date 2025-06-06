@@ -1,6 +1,6 @@
 # Milestone: MVP (v0.1.0)
 
-> ⚠️ **Current Status**: In Development (Week 1 of 8)
+> ⚠️ **Current Status**: In Development (Week 4 of 8) - Core Complete, Validators Next
 
 ## Overview
 
