@@ -1,0 +1,44 @@
+{
+  "name": "story-linter",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Modular validation engine for narrative consistency in longform fiction",
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/story-linter/story-linter#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/story-linter/story-linter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/story-linter/story-linter/issues"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "lerna run build",
+    "test": "lerna run test",
+    "lint": "lerna run lint",
+    "typecheck": "lerna run typecheck",
+    "clean": "lerna clean && rm -rf node_modules",
+    "dev": "lerna run dev --parallel",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "eslint": "^8.55.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "husky": "^8.0.3",
+    "lerna": "^8.0.0",
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
