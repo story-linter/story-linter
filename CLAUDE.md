@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Story Linter is a modular validation engine for narrative consistency in longform fiction. It's designed as "TypeScript for stories" - providing automated validation to help writers maintain consistency across complex narratives.
 
-**Current Status**: Documentation and planning phase. No implementation code exists yet.
+**Current Status**: MVP feature-complete but needs refactoring to meet standards.
 
 ## Architecture
 
@@ -22,6 +22,69 @@ Data Flow:
 ```
 Narrative Files → Parser → Pattern Detector → Schema Generation → Validators → Results
 ```
+
+## 🚨 CRITICAL: Development Standards (MANDATORY) 🚨
+
+### Test-Driven Development (TDD) - NO EXCEPTIONS
+
+**YOU MUST FOLLOW TDD - WRITE TESTS FIRST!**
+
+1. **Red**: Write a failing test BEFORE any implementation
+2. **Green**: Write minimal code to make the test pass
+3. **Refactor**: Clean up the code while keeping tests green
+
+```typescript
+// 1. ALWAYS START WITH A TEST
+describe('ConfigLoader', () => {
+  it('should load YAML configuration', async () => {
+    // This test MUST be written BEFORE ConfigLoader exists!
+    const fileSystem = new TestFileSystem();
+    fileSystem.addFile('/config.yml', 'validators:\n  character: true');
+    const loader = new ConfigLoader(fileSystem);
+    
+    const config = await loader.load('/config.yml');
+    
+    expect(config.validators.character).toBe(true);
+  });
+});
+
+// 2. THEN implement minimal code to pass
+// 3. THEN refactor if needed
+```
+
+### SOLID Principles & Dependency Injection
+
+**EVERY CLASS MUST:**
+
+1. **Single Responsibility** - One class, one reason to change
+2. **Dependency Injection** - ALL dependencies injected via constructor
+3. **Test Doubles** - NO SPIES! Use proper test doubles
+
+```typescript
+// ❌ WRONG - Direct dependency
+class ConfigLoader {
+  async load(path: string) {
+    const content = await fs.readFile(path); // NO! Direct fs usage
+  }
+}
+
+// ✅ CORRECT - Injected dependency
+class ConfigLoader {
+  constructor(private fileSystem: FileSystemPort) {} // YES! Injected
+  
+  async load(path: string) {
+    const content = await this.fileSystem.readFile(path);
+  }
+}
+```
+
+### Test Standards
+
+- **NO SPIES** - Use test doubles (stubs, fakes, dummies)
+- **Test behavior, not implementation**
+- **Test FIRST** - TDD is mandatory
+- **One assertion per test** (when practical)
+- **Descriptive test names** - `it('should reject invalid config with clear error')`
 
 ## Development Commands
 
