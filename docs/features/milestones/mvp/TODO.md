@@ -40,15 +40,19 @@
 ## Week 3-4: Validators 🔍
 
 ### Character Consistency Validator
-- [ ] Port from GitScrolls implementation
-  - [ ] Extract character validation logic
-  - [ ] Adapt to new plugin interface
-  - [ ] Maintain validation accuracy
-- [ ] Implement character tracking
-  - [ ] Name consistency checking
-  - [ ] Reference validation
-  - [ ] Character evolution support
-- [ ] Write comprehensive tests
+- [x] Port from GitScrolls implementation
+  - [x] Extract character validation logic
+  - [x] Adapt to new plugin interface
+  - [x] Maintain validation accuracy
+- [x] Implement character tracking
+  - [x] Name consistency checking
+  - [x] Reference validation
+  - [x] Context-aware mentions (retrospective)
+  - [x] Extensible design for evolution support
+- [x] Write comprehensive tests
+  - [x] Unit tests for validation rules
+  - [x] Integration tests with real files
+  - [x] Extensibility tests
 
 ### Link Graph Validator
 - [ ] Port from GitScrolls implementation

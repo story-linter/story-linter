@@ -4,47 +4,69 @@
 
 ## Overview
 
-The Character Consistency Plugin validates character names, evolution, references, and relationships throughout a narrative. It ensures that characters remain consistent while allowing for deliberate character development and growth.
+The Character Consistency Plugin validates character names, references, and relationships throughout a narrative. It provides essential character tracking while being extensible for story-specific needs.
+
+## Architecture
+
+This plugin follows an extensible design:
+- **Base validator** handles common scenarios (90% of use cases)
+- **Extensible** for story-specific needs (e.g., character evolution/transformation)
+- **Three-phase validation** for cross-file consistency
 
 ## Features
 
-### Core Features
-- **Character name consistency** - Validates consistent use of character names
-- **Evolution tracking** - Monitors deliberate name changes over time
-- **Reference validation** - Ensures all character references are valid
-- **Relationship consistency** - Tracks and validates character relationships
-- **Character introduction checking** - Verifies characters are properly introduced
-- **Pronoun consistency** - Maintains consistent pronoun usage for characters
-- **Character voice patterns** - Experimental feature for dialogue consistency
+### Core Features (Base Validator)
+- **Character name consistency** - Validates consistent spelling and usage
+- **Introduction tracking** - Ensures characters are introduced before referenced
+- **Alias management** - Handles nicknames and alternative names
+- **Timeline tracking** - Records when characters first appear
+- **Context awareness** - Distinguishes current vs retrospective mentions
+
+### Extensible Features (Via Subclassing)
+- **Evolution tracking** - For stories with character transformations
+- **Death tracking** - Validate post-death appearances
+- **Relationship graphs** - Complex relationship tracking
+- **Custom validations** - Story-specific rules
 
 ## Configuration
+
+### Base Configuration
 
 ```yaml
 plugins:
   character-consistency:
     enabled: true
-    evolution:
-      track: true
-      requireExplicit: false
-    references:
-      checkPronouns: true
-      checkNicknames: true
-    voice:
-      enabled: false  # Experimental
+    # Core features (always available)
+    nameConsistency: true
+    introductionTracking: true
+    aliasManagement: true
+    contextAwareness: true
+    
+    # Optional features
+    aliases:
+      caseSensitive: false
+      allowedVariations: ["nickname", "formal", "informal"]
+    
+    # For custom validators that extend this one
+    extensionPoint: "@story-linter/plugin-character-consistency"
 ```
 
-### Configuration Options
+### Extended Configuration Example (GitScrolls)
 
-#### `evolution`
-- `track` (boolean): Enable tracking of character name evolution
-- `requireExplicit` (boolean): Require explicit markers for name changes
-
-#### `references`
-- `checkPronouns` (boolean): Validate pronoun consistency
-- `checkNicknames` (boolean): Track and validate character nicknames
-
-#### `voice`
-- `enabled` (boolean): Enable experimental voice pattern checking
+```yaml
+plugins:
+  gitscrolls-character:
+    extends: "@story-linter/plugin-character-consistency"
+    enabled: true
+    # Inherited features plus:
+    evolution:
+      track: true
+      stages: ["Tuxicles", "Tuxrates", "Tuxilles"]
+      timeline:
+        Tuxicles: "scrolls/1-*.md"
+        Tuxrates: "scrolls/2-*.md"
+        Tuxilles: "scrolls/3-*.md"
+```
 
 ## Validation Rules
 
@@ -73,21 +95,55 @@ Maintains consistent pronoun usage for each character.
 Alex picked up her book. // Previously used "he/him" for Alex
 ```
 
-### Evolution Tracking (CHAR004)
-Tracks deliberate character name changes with proper context.
+### Context-Aware Validation (CHAR004)
+Distinguishes between current and retrospective mentions.
 
-**Valid Evolution:**
+**Valid Retrospective:**
 ```markdown
-"From now on," she said, "call me Phoenix, not Sarah."
+"Remember when Marcus saved us?" // OK even if Marcus not yet introduced
 ```
 
-### Relationship Consistency (CHAR005)
-Ensures character relationships remain consistent.
+### Alias Consistency (CHAR005)
+Tracks and validates character aliases and nicknames.
 
 **Example Issue:**
 ```markdown
-Chapter 1: John, Sarah's brother...
-Chapter 5: John, Sarah's cousin... // Error: Relationship changed
+Chapter 1: Elizabeth walked in.
+Chapter 2: Liz opened the door. // Warning: Possible alias, needs confirmation
+```
+
+## Three-Phase Validation Process
+
+The validator uses a three-phase approach to handle cross-file dependencies:
+
+### Phase 1: Metadata Extraction (During Streaming)
+```typescript
+// Extracts character data as files are streamed
+{
+  "chapter1.md": {
+    mentions: ["John", "Sarah"],
+    introductions: ["John"],
+    dialogue: [{ speaker: "John", line: 42 }]
+  }
+}
+```
+
+### Phase 2: State Building (After All Files)
+```typescript
+// Builds complete character state
+{
+  "John": {
+    aliases: ["Johnny"],
+    firstAppearance: "chapter1.md:10",
+    mentions: ["chapter1.md:10", "chapter2.md:5"]
+  }
+}
+```
+
+### Phase 3: Validation (Using Complete State)
+```typescript
+// Validates each file with full context
+// Can now detect forward references, aliases, etc.
 ```
 
 ## Schema Integration
