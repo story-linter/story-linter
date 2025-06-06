@@ -1,0 +1,48 @@
+{
+  "name": "@story-linter/core",
+  "version": "0.1.0",
+  "description": "Core validation framework for Story Linter",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "lint": "eslint src --ext .ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "story",
+    "linter",
+    "validation",
+    "narrative"
+  ],
+  "author": "Story Linter Team",
+  "license": "MIT",
+  "homepage": "https://github.com/story-linter/story-linter#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/story-linter/story-linter.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/story-linter/story-linter/issues"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "glob": "^10.3.10",
+    "gray-matter": "^4.0.3",
+    "yaml": "^2.3.4"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/node": "^20.10.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
