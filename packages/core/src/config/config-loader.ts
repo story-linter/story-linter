@@ -1,6 +1,15 @@
-import { readFile } from 'node:fs/promises';
-import { resolve, dirname } from 'node:path';
 import { parse as parseYaml } from 'yaml';
+
+// Port interfaces for dependency injection (SOLID principle)
+export interface FileSystemPort {
+  readFile(path: string, encoding?: string): Promise<string>;
+  fileExists(path: string): Promise<boolean>;
+}
+
+export interface PathResolverPort {
+  resolve(...paths: string[]): string;
+  dirname(path: string): string;
+}
 
 export interface StoryLinterConfig {
   // File processing
@@ -65,6 +74,11 @@ const DEFAULT_CONFIG: StoryLinterConfig = {
 export class ConfigLoader {
   private configCache = new Map<string, StoryLinterConfig>();
   
+  constructor(
+    private readonly fileSystem: FileSystemPort,
+    private readonly pathResolver: PathResolverPort
+  ) {}
+  
   /**
    * Load configuration from a file or directory
    */
@@ -99,20 +113,17 @@ export class ConfigLoader {
       'story-linter.config.js',
     ];
     
-    let currentDir = resolve(startPath);
-    const root = resolve('/');
+    let currentDir = this.pathResolver.resolve(startPath);
+    const root = this.pathResolver.resolve('/');
     
     while (currentDir !== root) {
       for (const configName of configNames) {
-        const configPath = resolve(currentDir, configName);
-        try {
-          await readFile(configPath);
+        const configPath = this.pathResolver.resolve(currentDir, configName);
+        if (await this.fileSystem.fileExists(configPath)) {
           return configPath;
-        } catch {
-          // File doesn't exist, continue
         }
       }
-      currentDir = dirname(currentDir);
+      currentDir = this.pathResolver.dirname(currentDir);
     }
     
     return null;
@@ -122,7 +133,7 @@ export class ConfigLoader {
    * Parse configuration file based on extension
    */
   private async parseConfigFile(configPath: string): Promise<Partial<StoryLinterConfig>> {
-    const content = await readFile(configPath, 'utf8');
+    const content = await this.fileSystem.readFile(configPath, 'utf8');
     
     if (configPath.endsWith('.yml') || configPath.endsWith('.yaml')) {
       return parseYaml(content) as StoryLinterConfig;
