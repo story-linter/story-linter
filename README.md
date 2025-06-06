@@ -20,30 +20,51 @@ Story Linter helps fiction writers maintain consistency across complex narrative
 - **World Building** - Location and setting consistency
 - **Dialogue Patterns** - Character voice consistency
 
-## Quick Start
+## Current Status
 
-### Using Docker (Recommended)
+**🚧 Pre-Release - Refactoring in Progress**
+
+The MVP features are complete and functional, but we're refactoring the core architecture to meet our quality standards before the v0.1.0 release.
+
+### ✅ Completed Features
+- Character consistency validation (with extensible design)
+- Link validation with orphan detection  
+- CLI with text/JSON/HTML output formats
+- Streaming file processing for large projects
+- YAML configuration support
+- Plugin architecture
+
+### 🔧 In Progress (Before Release)
+1. **Core Refactoring** - Adding proper dependency injection
+2. **Performance** - Incremental validation & parallel processing
+3. **Testing** - Integration tests with GitScrolls
+4. **Documentation** - Usage examples and API docs
+
+## Quick Start (Coming Soon)
 
 ```bash
-# Clone the repository
-git clone https://github.com/story-linter/story-linter.git
-cd story-linter
-
-# Install dependencies
-make install
-
-# Run validation on your stories
-LINT_DIR=/path/to/your/stories make lint
-```
-
-### Using Node.js
-
-```bash
-# Install globally
+# Will be available after refactoring is complete
 npm install -g @story-linter/cli
 
 # Run validation
 story-linter validate /path/to/your/stories
+```
+
+### Development Preview
+
+```bash
+# Clone and run locally
+git clone https://github.com/story-linter/story-linter.git
+cd story-linter
+
+# Using Docker (recommended)
+make dev
+make shell
+
+# Or with local Node.js
+npm install
+npm run build
+./packages/cli/dist/cli.js validate test-stories/
 ```
 
 ## Features

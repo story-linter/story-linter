@@ -8,7 +8,7 @@
 - [x] Update navigation structure
 
 ### Current Milestone: [MVP (v0.1.0)](docs/features/milestones/mvp/)
-**Status**: Week 4 of 8 - Validator Implementation Phase
+**Status**: Week 6 of 8 - MVP Feature Complete! 🎉
 
 #### Completed ✅
 - [x] Monorepo structure with Lerna
@@ -25,15 +25,64 @@
 - [x] Dependency injection implementation
 - [x] Test doubles (no spies!)
 - [x] Unit and integration tests for core
+- [x] Character consistency validator (extensible design)
+- [x] Link graph validator (with orphan detection)
+- [x] CLI package with SOLID architecture
+- [x] Output formatters (text, JSON, HTML)
+- [x] Progress indicators and colored output
+- [x] Exit codes for CI/CD integration
 
-#### In Progress 🚧
-- [ ] Character consistency validator port
-- [ ] Link graph validator port
+#### Refactoring Plan (4 Phases)
 
-#### Up Next 📋
-- [ ] CLI package implementation
-- [ ] Output formatters
-- [ ] End-to-end testing
+##### Phase 1: Fix Core Architecture (Days 1-2) 🔧
+- [ ] Refactor ValidationFramework using TDD
+  - [ ] Write tests FIRST for ValidationOrchestrator
+  - [ ] Extract PluginManager with DI
+  - [ ] Extract ResultAggregator with DI
+  - [ ] Inject all dependencies (FileProcessor, ConfigLoader)
+- [ ] Fix ConfigLoader
+  - [ ] Write tests FIRST
+  - [ ] Add FileSystemPort
+  - [ ] Implement with DI
+- [ ] Fix FileDiscovery  
+  - [ ] Write tests FIRST
+  - [ ] Add FileSystemPort
+  - [ ] Implement with DI
+
+##### Phase 2: Performance Features (Day 3) 🚀
+- [ ] Implement Incremental Validation
+  - [ ] Design cache structure
+  - [ ] Add file hashing
+  - [ ] Implement dependency tracking
+  - [ ] Add --force flag support
+- [ ] Add Parallel File Processing
+  - [ ] Simple Promise.all batching
+  - [ ] Configurable concurrency
+  - [ ] Progress event updates
+
+##### Phase 3: Integration Testing (Day 4) 🧪
+- [ ] Create GitScrolls test subset
+  - [ ] Copy representative files
+  - [ ] Add intentional errors (typos, broken links, orphans)
+  - [ ] Document test cases
+- [ ] Write integration tests
+  - [ ] Character consistency detection
+  - [ ] Link validation
+  - [ ] Performance benchmarks
+
+##### Phase 4: Ship It! (Day 5) 🚢
+- [ ] Polish documentation
+  - [ ] Update main README with real examples
+  - [ ] Add API documentation
+  - [ ] Create migration guide from GitScrolls
+- [ ] Prepare npm packages
+  - [ ] Update package.json files
+  - [ ] Add LICENSE to each package
+  - [ ] Test publishing flow
+- [ ] Final testing
+  - [ ] Full end-to-end validation
+  - [ ] Performance verification
+  - [ ] Cross-platform testing
 
 For detailed MVP tasks, see: [MVP TODO](docs/features/milestones/mvp/TODO.md)
 
