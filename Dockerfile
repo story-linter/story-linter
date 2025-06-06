@@ -13,7 +13,9 @@ COPY lerna.json ./
 COPY packages/*/package*.json ./packages/
 
 # Install dependencies
-RUN npm ci
+# Use npm install for initial setup (creates package-lock.json)
+# In production builds, you'd copy package-lock.json and use npm ci
+RUN npm install
 
 # Copy source code
 COPY . .
@@ -37,6 +39,7 @@ COPY --from=base /app/packages ./packages
 COPY --from=base /app/package*.json ./
 
 # Install only production dependencies
-RUN npm ci --production
+# Note: In real production, you'd have package-lock.json
+RUN npm install --production
 
 CMD ["node", "packages/cli/dist/cli.js"]
