@@ -170,6 +170,9 @@
   },
   "active": "3e76620ed7316b40",
   "lastOpenFiles": [
+    "HUGE.txt",
+    "packages/core/src/framework/file-processor.test.ts",
+    "docs/features/all-features/timeline-visualization-reports.md",
     "BIG-ASS-DIFF.md",
     "packages/cli/test-simple.js",
     "HUDE-diff.txt",
@@ -183,7 +186,6 @@
     "node_modules/typescript/ThirdPartyNoticeText.txt",
     "node_modules/typescript/LICENSE.txt",
     "node_modules/typescript/lib/typescript.d.ts",
-    "node_modules/typescript/lib/tsserverlibrary.d.ts",
     "node_modules/nx/README.md",
     "node_modules/typescript/SECURITY.md",
     "node_modules/typescript/README.md",
@@ -204,8 +206,6 @@
     "node_modules/@typescript-eslint/eslint-plugin/docs/rules/space-before-blocks.md",
     "node_modules/@typescript-eslint/eslint-plugin/docs/rules/sort-type-constituents.md",
     "node_modules/@typescript-eslint/eslint-plugin/docs/rules/semi.md",
-    "node_modules/@typescript-eslint/eslint-plugin/docs/rules/restrict-template-expressions.md",
-    "node_modules/@typescript-eslint/eslint-plugin/docs/rules/return-await.md",
     "node_modules/retry/equation.gif"
   ]
 }
