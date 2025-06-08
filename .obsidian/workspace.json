@@ -170,6 +170,8 @@
   },
   "active": "3e76620ed7316b40",
   "lastOpenFiles": [
+    "BIG-ASS-DIFF.md",
+    "packages/cli/test-simple.js",
     "HUDE-diff.txt",
     "packages/core/src/framework/validation-framework-original.ts",
     "packages/core/src/framework/validation-framework-adapter.ts",
@@ -182,8 +184,6 @@
     "node_modules/typescript/LICENSE.txt",
     "node_modules/typescript/lib/typescript.d.ts",
     "node_modules/typescript/lib/tsserverlibrary.d.ts",
-    "node_modules/typescript/lib/lib.webworker.iterable.d.ts",
-    "node_modules/typescript/lib/lib.webworker.importscripts.d.ts",
     "node_modules/nx/README.md",
     "node_modules/typescript/SECURITY.md",
     "node_modules/typescript/README.md",

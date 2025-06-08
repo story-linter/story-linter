@@ -176,8 +176,16 @@ export class TestColorPort implements ColorPort {
 export class TestValidator implements BaseValidator {
   constructor(public name: string, public version: string) {}
   
-  async validate(): Promise<ValidationResult> {
+  async initialize(context: any, config: any): Promise<void> {
+    // Mock initialization
+  }
+  
+  async validate(files: any[]): Promise<ValidationResult> {
     return { valid: true, errors: [], warnings: [], info: [] };
+  }
+  
+  getMetadataExtractors(): Record<string, (content: string, context: any) => any> {
+    return {};
   }
   
   async destroy(): Promise<void> {}

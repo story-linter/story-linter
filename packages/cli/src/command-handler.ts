@@ -72,7 +72,7 @@ export class CommandHandler {
     return line.includes('✗ [') || line.includes('Error:');
   }
   
-  private handleError(error: any): void {
+  handleError(error: any): void {
     this.console.error(`Error: ${error.message || error}`);
     
     if (error.stack && this.process.env.DEBUG) {
